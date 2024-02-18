@@ -1,6 +1,11 @@
+import pickle
 import matplotlib.pyplot as plt
-from model import y_pred, y_test
+from model import y_test, X_test
 
+# Загрузка обученной модели
+with open('trained_model.pkl', 'rb') as file:
+    loaded_model = pickle.load(file)
+y_pred = loaded_model.predict(X_test)
 # Вычисление количества правильных и неправильных предсказаний
 correct_predictions = (y_pred == y_test).sum()
 incorrect_predictions = (y_pred != y_test).sum()
