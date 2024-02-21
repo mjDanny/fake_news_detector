@@ -7,9 +7,15 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Загрузка данных
 data = pd.read_csv('./data_set/fake_news.csv')
-
+# Удаление дубликатов
+data = data.drop_duplicates()
+# удаление Nan
+data = data.dropna()
+data = data.dropna(axis=1)
+# Заполнение отсутствующих значений предыдущим значением
+data = data.fillna(method='ffill')
 # Объединение всех признаков в один DataFrame
-X = data[['Unnamed: 0', 'title', 'text']]
+X = data[['text']]
 y = data['label']  # целевые значения
 
 # Преобразование текстовых данных в числовые вектора с помощью TF-IDF
